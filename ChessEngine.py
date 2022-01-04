@@ -88,6 +88,7 @@ class GameState:
         self.staleMate = False
         self.draw = False
         self.threefold = False
+        self.illegal_move_done = False
         self.game_log = {}
 
     def __str__(self):

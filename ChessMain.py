@@ -156,7 +156,8 @@ def main(args):
     halfmoveClock = 0  # global halfmoveClock
     GameTable = {"Draw by 50 move rule": 0, "Draw by threefold position repetition": 0, "Black wins by checkmate": 0,
                  "White wins by checkmate": 0, "Black wins on time": 0, "White wins on time": 0,
-                 "Draw by insufficient material": 0}
+                 "Draw by insufficient material": 0, "White wins by illegal move": 0,
+                 "Black wins by illegal move": 0}
 
     start_time = -1
 
@@ -272,6 +273,8 @@ def main(args):
                 move_finder_process.join()
             # if not move_finder_process.is_alive():
                 ai_move, nextMoveScore, currentDepth = chessai.get_move()
+                if not ai_move in game_state.getValidMoves():
+                    game_state.illegal_move_done = True
 
                 if game_state.whiteToMove:
                     average_depth_per_game.append(currentDepth)
@@ -313,7 +316,7 @@ def main(args):
             drawGameState(screen, game_state, valid_moves, sqSelected, moveLogFont)
 
         # draw EndGameText
-        if game_state.checkMate or game_state.staleMate or halfmoveClock == 100 or clock_counter < 0 - 0.3 or game_state.threefold or game_state.draw:
+        if game_state.checkMate or game_state.staleMate or halfmoveClock == 100 or clock_counter < 0 - 0.3 or game_state.threefold or game_state.draw or game_state.illegal_move_done:
             game_over = True
             if game_state.threefold:
                 text = "Draw by threefold position repetition"
@@ -327,6 +330,8 @@ def main(args):
                 text = "Black wins on time"
             elif game_state.draw:
                 text = "Draw by insufficient material"
+            elif game_state.illegal_move_done:
+                text = f"{'White' if game_state.whiteToMove else 'Black'} wins by illegal move"
             else:
                 text = "White wins on time"
             if args.use_gui:
