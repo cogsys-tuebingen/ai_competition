@@ -19,7 +19,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
 import pygame as py
 import ChessEngine
-from agents.expert import MrExpert
+# from agents.expert import MrExpert
 from agents.random import MrRandom
 from student_agents.template import Agent as Agent1
 from student_agents.template2 import Agent as Agent2

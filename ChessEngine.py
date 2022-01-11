@@ -40,16 +40,16 @@ class GameState:
                       'wR', 'wB', 'wN', 'wK', 'wB', 'wR']
 
         # for testing interesting positions
-
+        """
         self.board = ['bR', '--', '--', '--', '--', '--',
                       '--', '--', 'bK', '--', '--', '--',
                       '--', '--', '--', 'bp', '--', '--',
                       '--', '--', 'bB', 'wp', 'bp', '--',
                       'bp', '--', 'wK', '--', 'wp', '--',
                       'bR', '--', '--', '--', '--', '--']
-
+        """
         # to flip the board:
-
+        """
         for j in range(len(self.board)):
             print('b' in self.board[j])
             if 'b' in self.board[j]:
@@ -59,7 +59,7 @@ class GameState:
         self.board.reverse()
         for j in range(len(self.board) // 6):
             print(self.board[j * 6: (j*6)+5])
-
+        """
 
         self.moveFunctions = {'p': self.getPawnMoves, 'R': self.getRookMoves, 'N': self.getKnightMoves,
                               'B': self.getBishopMoves, 'K': self.getKingMoves, 'Q': self.getQueenMoves}
