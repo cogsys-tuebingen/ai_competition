@@ -658,7 +658,7 @@ if __name__ == "__main__":
                              'This file will be overwritten, if it exists.')
     parser.add_argument('--verbose', default=False, action='store_true',
                         help='Whether the output file only contains the final result or all moves.')
-    parser.add_argument('--use_gui', default=True, action='store_true',
+    parser.add_argument('--use_gui', default=False, action='store_true',
                         help='Whether the output file only contains the final result or all moves.')
     parser.add_argument('--num_games', type=int, default=1,
                         help='How many games you want to play with this settings and agents.'
