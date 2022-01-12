@@ -273,6 +273,7 @@ def main(args):
                 move_finder_process.join()
             # if not move_finder_process.is_alive():
                 ai_move, nextMoveScore, currentDepth = chessai.get_move()
+                ai_move = ChessEngine.Move((ai_move.startRow, ai_move.startCol), (ai_move.endRow, ai_move.endCol), game_state.board)
                 if not ai_move in game_state.getValidMoves():
                     game_state.illegal_move_done = True
 
