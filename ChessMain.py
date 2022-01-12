@@ -675,6 +675,7 @@ if __name__ == "__main__":
     # if multiprocessing.cpu_count() > 17:
     if args.evaluation:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
+        args.use_gui = False
     # freeze_support()
 
     main(args)

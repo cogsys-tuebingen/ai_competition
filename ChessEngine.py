@@ -824,9 +824,7 @@ class Move():
             True when its the same move
 
         """
-        if isinstance(other, Move):
-            return self.moveID == other.moveID
-        return False
+        return self.moveID == other.moveID
 
     def getChessNotation(self):
         """
