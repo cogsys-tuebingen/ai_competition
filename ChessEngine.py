@@ -792,6 +792,10 @@ class Move():
         self.endRC = self.endRow * 6 + self.endCol
 
         self.pieceMoved = board[self.startRC]
+        #check if piecedMoved is a valid figure
+        if(self.pieceMoved == "--"): 
+            raise ValueError('try moving a piece that is not on the board')
+
         self.pieceCaptured = board[self.endRC]
 
         self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
