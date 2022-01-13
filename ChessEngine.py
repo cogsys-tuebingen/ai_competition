@@ -70,8 +70,17 @@ class GameState:
         self.left = -1
         self.right = 1
         self.moveLog = []
-        self.whiteKingLocation = (5, 3)
-        self.blackKingLocation = (0, 3)  # to not have to scan for the king
+        # self.whiteKingLocation = (5, 3)
+        # self.blackKingLocation = (0, 3)  # to not have to scan for the king
+        # in case one has an experimental board:
+        try:
+            wKL = self.board.index('wK')
+            self.whiteKingLocation = (wKL // 6, wKL % 6)
+            bKL = self.board.index('bK')
+            self.blackKingLocation = (bKL // 6, bKL % 6)
+        except ValueError as e:
+            print('Both kings have to be present on the board!')
+            raise e
 
         self.inCheck = False
         self.pins = []
@@ -79,8 +88,14 @@ class GameState:
 
         # self.currentCastlingRight = CastleRights(False, False, False, False) # this has to be in the code when testing positions where castling is not allowed
 
-        self.currentCastlingRight = CastleRights(True, True, True,
-                                                 True)  # this has to be commented out when testing positions where castling is not allowed
+        # self.currentCastlingRight = CastleRights(True, True, True,
+        #                                          True)
+        # again, if one has an experimental board: (one can also enter True or False if one wants to try stuff)
+        # the order of the arguments is: white kingside, black kingside, white queenside, black queenside
+        self.currentCastlingRight = CastleRights(self.whiteKingLocation == (5, 3) and self.board[5 * 6 + 5] == 'wR',
+                                                 self.blackKingLocation == (0, 3) and self.board[0 * 6 + 5] == 'bR',
+                                                 self.whiteKingLocation == (5, 3) and self.board[5 * 6 + 0] == 'wR',
+                                                 self.blackKingLocation == (0, 3) and self.board[0 * 6 + 0] == 'bR')
         self.castleRightsLog = [CastleRights(self.currentCastlingRight.wks, self.currentCastlingRight.bks,
                                              self.currentCastlingRight.wqs, self.currentCastlingRight.bqs)]
 
@@ -787,16 +802,17 @@ class Move():
         self.startRow = startSq[0]
         self.startCol = startSq[1]
         self.startRC = self.startRow * 6 + self.startCol
+
         self.endRow = endSq[0]
         self.endCol = endSq[1]
         self.endRC = self.endRow * 6 + self.endCol
 
         self.pieceMoved = board[self.startRC]
-        #check if piecedMoved is a valid figure
-        if(self.pieceMoved == "--"): 
-            raise ValueError('try moving a piece that is not on the board')
-
         self.pieceCaptured = board[self.endRC]
+
+        # check if pieceMoved is a valid figure
+        if self.pieceMoved == "--":
+            raise ValueError('Tried moving a piece that is not on the board.')
 
         self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
 
