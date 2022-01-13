@@ -811,8 +811,8 @@ class Move():
         self.pieceCaptured = board[self.endRC]
 
         # check if pieceMoved is a valid figure
-        if self.pieceMoved == "--":
-            raise ValueError('Tried moving a piece that is not on the board.')
+        # if self.pieceMoved == "--":
+        #     raise ValueError('Tried moving a piece that is not on the board.')
 
         self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
 
