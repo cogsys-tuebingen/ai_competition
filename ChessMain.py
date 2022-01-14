@@ -323,6 +323,8 @@ def main(args):
                 text = "Draw by threefold position repetition"
             elif halfmoveClock == 100:
                 text = "Draw by 50 move rule"
+            elif game_state.staleMate:
+                text = "Stalemate"
             elif game_state.checkMate and game_state.whiteToMove:
                 text = "Black wins by checkmate"
             elif game_state.checkMate:
